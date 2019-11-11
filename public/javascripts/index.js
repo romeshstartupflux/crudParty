@@ -96,7 +96,7 @@ function createParty() {
   xhttp.open("POST", "createParty", true);
   xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
   xhttp.send("name="+ formData.name.value +"&party="+formData.party.value);
-  listAll();
+  // listAll();
 }
 
 /**     S E A R C H         */

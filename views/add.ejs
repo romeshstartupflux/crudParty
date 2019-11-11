@@ -4,7 +4,7 @@
         <select class="form-control" name="name" ng-repeat="x in items">
             <option value="#">Select Option</option>
             <% for (i=0; i< items.length; i++) { %>
-            <option value="{{x.name}}"><%=items[i].name%></option>
+            <option value="<%=items[i].name %>"><%=items[i].name%></option>
             <% } %>
         </select>
     </div>
