@@ -36,9 +36,9 @@ router.get('/search', async (req, res) => {
 })
 
 /**   A D D   P A R T Y   T A B  */
-router.get('/add', (req, res) => {
+router.get('/add', async (req, res) => {
   console.log("Add party tab called()")
-  res.render('add', { title: "Add Party" })
+  res.render('add', {title: "Add", items : await getAllData()})
 })
 
 /**   D E L E T E    P A R T Y    T A B    */

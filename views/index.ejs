@@ -3,6 +3,8 @@
 
 <head>
   <title><%= title %></title>
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
 
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -38,22 +40,51 @@
 
   <!--     T A B S    E N D S        -->
 
-  
+
   <div class="container all-parties">
 
   </div>
-  
+
   <div id="listAll"></div>
 
-  <!-- <script>
-    function angularFunction() {
-      var app = angular.module('myApp', []);
-      app.controller('myCtrl', function ($scope) {
-        $scope.items = JSON.parse('<%- JSON.stringify(items) %>');;
-      });
-    };
+  <div id="myPieChart"></div>
+  <script>
+    // function angularFunction() {
+    //   var app = angular.module('myApp', []);
+    //   app.controller('myCtrl', function ($scope) {
+    //     $scope.items = JSON.parse('<%- JSON.stringify(items) %>');
+    //   });
+    // };
+    var appData = JSON.parse('<%- JSON.stringify(items) %>');
+    console.log(appData)
+  </script>
+  <!--   G O O G L E   C H A R T    D A T A   -->
+  <script type="text/javascript">
+    google.charts.load('current', { packages: ['corechart'] });
+    google.charts.setOnLoadCallback(drawChart);
 
-  </script> -->
+    function drawChart() {
+
+      // Create the data table.
+      var data = new google.visualization.DataTable();
+      data.addColumn('string', 'Name');
+      data.addColumn('number', 'Party');
+      for (i = 0; i < appData.length; i++) {
+        data.addRows([
+          [appData[i].name, appData[i].party.length],
+        ]);
+      }
+      // Set chart options
+      var options = {
+        'title': 'Party Chart',
+        'width': 400,
+        'height': 300
+      };
+      // Instantiate and draw our chart, passing in some options.
+      var chart = new google.visualization.PieChart(document.getElementById('myPieChart'));
+      chart.draw(data, options);
+    }
+  </script>
 
   <!--    JS FILE     -->
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
