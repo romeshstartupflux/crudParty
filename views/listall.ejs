@@ -1,0 +1,20 @@
+<div class="container all-parties">
+    <h2>ALL PARTIES</h2>
+    <table class="table" id="listall-table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Parties</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% for (i=0; i < items.length; i++) { %>
+            <tr>
+                <td><%=items[i].name%></td>
+                <td><%=items[i].party%></td>
+            </tr>
+            <% } %>
+        </tbody>
+    </table>
+
+</div>

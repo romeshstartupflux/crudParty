@@ -1,0 +1,16 @@
+<h2>Add Party</h2>
+<form action="addparty" method="GET">
+    <div class="form-group">
+        <select class="form-control" name="name" ng-repeat="x in items">
+            <option value="{{x.name}}">{{x.name}}</option>
+        </select>
+    </div>
+    <ul ng-repeat="x in items">
+        <li>{{x.name}}</li>
+        <li>{{x.party}}</li>
+    </ul>
+    <div class="form-group">
+        <input type="text" name="partyName" id="partyName" class="form-control" placeholder="Party Name">
+    </div>
+    <input type="submit" class="btn btn-primary btn-lg btn-block" value="Add Party">
+</form>

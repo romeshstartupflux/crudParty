@@ -1,0 +1,12 @@
+<h2>Delete Party</h2>
+<form action="delete" method="GET">
+    <div class="form-group">
+        <select class="form-control" name="name">
+            <option value="#">Select Name</option>
+            <% for (i=0; i < items.length; i++) { %>
+            <option value="<%=items[i].name%>"><%=items[i].name%></option>
+            <% } %>
+        </select>
+    </div>
+    <input type="submit" class="btn btn-primary btn-lg btn-block" value="Delete" onclick="deleteParty()">
+</form>
