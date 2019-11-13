@@ -155,6 +155,24 @@ function deleteParty(str) {
   xhttp.send();
 }
 
-/**    L I S T    A L L    E M P L O Y E E    N A M E     */
+/**    D E L E T E    O N E     */
+function deleteone(){
+  console.log("DELETE ONE FUNCTION CALLED IN JS FILE");
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      document.getElementById("demo").innerHTML = "Success";
+    }
+  };
+  
+  var formData = {
+    name : document.getElementById('name'),
+    partyValue : document.getElementById('partyValue')
+  };
+  console.log(formData.partyValue.value)
+  xhttp.open("POST", "deleteone", true);
+  xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+  xhttp.send("name="+ formData.name.value +"&party="+formData.partyValue.value);
+}
 
 

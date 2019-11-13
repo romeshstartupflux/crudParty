@@ -4,13 +4,19 @@
     <thead>
         <tr>
             <th>Party Name</th>
-            <th>ID</th>
+            <th>Delete</th>
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td><%=result.party%></td>
-            <td><%=result.id%></td>
-        </tr>
+        <form>
+            <input type="hidden" name="name" value="<%=result.name%>" id="name">
+            <% for(i=0; i < result.party.length ; i++) { %>
+            <input type="hidden" name="partyValue" value="<%=result.party[i]%>" id="partyValue">
+            <tr>
+                <td><%=result.party[i]%></td>
+                <td><button type="submit" name="submit" onclick="deleteone()">Delete</button></td>
+            </tr>
+            <% } %>
+        </form>
     </tbody>
 </table>

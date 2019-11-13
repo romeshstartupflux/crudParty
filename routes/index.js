@@ -17,12 +17,29 @@ async function getAllData() {
 
 /**  PARTY   */
 router.get('/', async function (req, res, next) {
-  res.render('index', {title: "Party", items : await getAllData()})
+  res.render('index', { title: "Party", items: await getAllData() })
 });
 
-/***         L I S T      A L L          */
+
+/***         L I S T      A L L          */         /***            P A G I N A T I O N          */
 router.get('/listall', async function (req, res, next) {
-  res.render('listall', {title: "Party", items : await getAllData()})
+  const party = new Party();
+  const nPerPage = 2;
+
+
+  async function partyPage(pageNumber, nPerPage) {
+    console.log("Page : ", pageNumber);
+
+    var partyDetails = await party.collection.find()
+      .skip(pageNumber > 0 ? ((pageNumber - 1) * nPerPage) : 0)
+      .limit(nPerPage)
+      .toArray();
+      return partyDetails; 
+  }
+  var countTill = await party.collection.find().count();
+  console.log(" C O U N T  :  ", Math.round(countTill/2))
+  //console.log("partyLength ", await partyPage(2, nPerPage))
+  res.render('listall', { title: "Party", items: await partyPage(2, nPerPage), count: Math.round(countTill/2) })
 });
 
 /**   C R E A T E    P A R T Y   T A B  */
@@ -32,18 +49,18 @@ router.get('/createparty', (req, res) => {
 
 /**    S E A R C H    P A G E   T A B  */
 router.get('/search', async (req, res) => {
-  res.render('search', {title: "Search", items : await getAllData()})
+  res.render('search', { title: "Search", items: await getAllData() })
 })
 
 /**   A D D   P A R T Y   T A B  */
 router.get('/add', async (req, res) => {
   console.log("Add party tab called()")
-  res.render('add', {title: "Add", items : await getAllData()})
+  res.render('add', { title: "Add", items: await getAllData() })
 })
 
 /**   D E L E T E    P A R T Y    T A B    */
 router.get('/deletetab', async (req, res) => {
-  res.render('deletetab', {title: "Delete Tab", items : await getAllData()})
+  res.render('deletetab', { title: "Delete Tab", items: await getAllData() })
 })
 
 
@@ -96,10 +113,10 @@ router.get('/addparty', (req, res) => {
   party.collection.update(
     { name: req.query.name },
     { $push: { party: req.query.partyName } }
-    , function (err, result) {
+    , async function (err, result) {
       if (err) throw err;
-      console.log("Updated : ", result);
-      res.send("Updates");
+      //console.log("Updated : ", result);
+      res.render('index', { title: "Party", items: await getAllData() });
     })
 
 });
@@ -117,6 +134,24 @@ router.get('/delete', (req, res) => {
     //res.render("", {title : "Party"})
     res.redirect("/")
   });
+
+});
+
+/**  DELETE ONE PARTY */
+router.post('/deleteone', (req, res) => {
+  console.log("DELETE ONE PARTY CALLED")
+  const party = new Party();
+
+  //party.party = req.query.partyName;
+  console.log(" P A R T Y    V A L U E : ", req.body.party)
+  party.collection.updateOne(
+    { name: req.body.name },
+    { $pull: { party: { $in: [req.body.party] } } }
+    , async function (err, result) {
+      if (err) throw err;
+      //console.log("Updated : ", result);
+      res.render('index', { title: "Party", items: await getAllData() });
+    })
 
 });
 
