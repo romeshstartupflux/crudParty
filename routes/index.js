@@ -9,9 +9,9 @@ const Party = require('../models/party')
 
 /**  GET ALL DATA FROM DB */
 async function getAllData() {
-  const party = new Party();
-  const partyDetails = await party.collection.find().toArray();
-  return partyDetails;
+    const party = new Party();
+    var partyDetails = await party.collection.find().toArray();
+    return partyDetails;
 }
 
 
@@ -175,5 +175,36 @@ router.get('/sortlimit', (req, res) => {
     console.log(result)
   })
 });
+
+/**  XXXXXXXXXXXXX */
+router.get('/x', async (req, res) => {
+  //const party =new Party();
+  var partyItems = Party.collection.find().toArray();
+  console.log("BEFORE DATA", partyItems)
+  var partyDetails = Party.find({})
+  //console.log(Party.find({name: "Romesh"}))
+  //console.log(partyDetails)
+  res.render('x', {title: 'XXX', items : partyDetails})
+});
+
+router.post('/x', (req, res) => {
+  const party = new Party();
+  party.name = req.body.name;
+  party.party = req.body.party;
+
+  //console.log("carmaxx : ", carmaxx)
+
+  party.save().then((doc) => {
+    console.log('doc  : ', doc)
+    //res.status(200);
+    //res.send("Added New Data")
+  }, (e) => {
+    console.log("error occured")
+    res.status(501).json({
+      //success: false,
+      //message: "Couldn't add new job"
+    });
+  })
+})
 
 module.exports = router;
