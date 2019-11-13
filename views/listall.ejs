@@ -19,7 +19,7 @@
     <ul class="pagination">
         <li class="page-item"><a class="page-link" href="#">Previous</a></li>
         <% for (i=1; i <= count ; i++) { %>
-            <li class="page-item"><a class="page-link" href="#"><%=i%></a></li>
+            <li class="page-item"><a class="page-link" href="#" onclick="listAll('<%=i%>')"><%=i%></a></li>
         <% } %>
         <li class="page-item"><a class="page-link" href="#">Next</a></li>
     </ul>

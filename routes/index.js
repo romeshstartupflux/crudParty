@@ -22,13 +22,13 @@ router.get('/', async function (req, res, next) {
 
 
 /***         L I S T      A L L          */         /***            P A G I N A T I O N          */
-router.get('/listall', async function (req, res, next) {
+router.get('/listall/:pageNumber', async function (req, res, next) {
   const party = new Party();
-  const nPerPage = 2;
-
+  const nPerPage = 3;
+  const pageNumber = req.params.pageNumber
+  console.log("Print STR", pageNumber)
 
   async function partyPage(pageNumber, nPerPage) {
-    console.log("Page : ", pageNumber);
 
     var partyDetails = await party.collection.find()
       .skip(pageNumber > 0 ? ((pageNumber - 1) * nPerPage) : 0)
@@ -37,9 +37,9 @@ router.get('/listall', async function (req, res, next) {
       return partyDetails; 
   }
   var countTill = await party.collection.find().count();
-  console.log(" C O U N T  :  ", Math.round(countTill/2))
-  //console.log("partyLength ", await partyPage(2, nPerPage))
-  res.render('listall', { title: "Party", items: await partyPage(2, nPerPage), count: Math.round(countTill/2) })
+  // console.log("COUNTILL : ", countTill)
+  // console.log(" C O U N T  :  ", Math.ceil(countTill/nPerPage))
+  res.render('listall', { title: "Party", items: await partyPage(pageNumber, nPerPage), count: Math.ceil(countTill/nPerPage) })
 });
 
 /**   C R E A T E    P A R T Y   T A B  */

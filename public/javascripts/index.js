@@ -1,4 +1,4 @@
-listAll();
+listAll(1);
 party();
 //angularFunction();
 
@@ -132,7 +132,7 @@ function listAll(str) {
     }
 
   };
-  xhttp.open("GET", "/listall", true);
+  xhttp.open("GET", "/listall/"+str, true);
   xhttp.send();
 }
 
@@ -175,4 +175,5 @@ function deleteone(){
   xhttp.send("name="+ formData.name.value +"&party="+formData.partyValue.value);
 }
 
+/**   L I S T   A L L   P A G I N A T I O N   */
 
