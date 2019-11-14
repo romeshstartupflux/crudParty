@@ -66,7 +66,7 @@ router.get('/deletetab', async (req, res) => {
 
 
 /**  NEW CREAT POST PARTY insert*/
-router.post('/createParty', (req, res) => {
+router.post('/createParty',async (req, res) => {
   console.log("req.body : ", req.body)
   const party = new Party();
 
@@ -75,10 +75,11 @@ router.post('/createParty', (req, res) => {
 
   //console.log("carmaxx : ", carmaxx)
 
-  party.save().then((doc) => {
+  party.save().then(async (doc) => {
     console.log('doc  : ', doc)
-    //res.status(200);
+    // res.status(200);
     //res.send("Added New Data")
+    res.render('index', { title: "Party", items: await getAllData() })
   }, (e) => {
     console.log("error occured")
     res.status(501).json({
@@ -86,6 +87,8 @@ router.post('/createParty', (req, res) => {
       //message: "Couldn't add new job"
     });
   })
+  //res.redirect('/');
+  // res.render('index', { title: "Party", items: await getAllData() })
 });
 
 /**  SEARCH PARTY */
