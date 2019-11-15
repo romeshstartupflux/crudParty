@@ -76,12 +76,13 @@ router.post('/createParty', async (req, res) => {
   //console.log("carmaxx : ", carmaxx)
 
   party.save().then(async (doc) => {
-    console.log('doc  : ', doc)
+    //console.log('doc  : ', doc)
     // return res.status(200).json({
     //   success : true,
     //   message : "Saved Sucessfully",
     // })
-    res.render('index', { title: "Party", items: await getAllData() })
+    //res.render('index', { title: "Party", items: await getAllData() })
+    res.redirect("/")
   }, (e) => {
     console.log("error occured")
     res.status(501).json({
