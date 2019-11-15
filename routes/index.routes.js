@@ -224,7 +224,7 @@ router.get('/searchpageRes', async (req, res) => {
   const party = new Party();
   console.log("req : ", req.query.name)
   var searchQuery = { "name":  req.query.name};
-  await party.collection.find(searchQuery).toArray()
+  await party.collection.find(searchQuery).collation({locale:'en', strength:2}).toArray()
     .then((result) => {
       console.log(result)
       if (result.length > 0) {
