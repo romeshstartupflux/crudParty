@@ -90,7 +90,7 @@ router.post('/createParty', async (req, res) => {
       //message: "Couldn't add new job"
     });
   })
-  //res.redirect('/');
+  // res.redirect('/');
   // res.render('index', { title: "Party", items: await getAllData() })
 });
 
