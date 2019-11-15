@@ -9,9 +9,9 @@ const Party = require('../models/party')
 
 /**  GET ALL DATA FROM DB */
 async function getAllData() {
-    const party = new Party();
-    var partyDetails = await party.collection.find().toArray();
-    return partyDetails;
+  const party = new Party();
+  var partyDetails = await party.collection.find().toArray();
+  return partyDetails;
 }
 
 
@@ -34,12 +34,12 @@ router.get('/listall/:pageNumber', async function (req, res, next) {
       .skip(pageNumber > 0 ? ((pageNumber - 1) * nPerPage) : 0)
       .limit(nPerPage)
       .toArray();
-      return partyDetails; 
+    return partyDetails;
   }
   var countTill = await party.collection.find().count();
   // console.log("COUNTILL : ", countTill)
   // console.log(" C O U N T  :  ", Math.ceil(countTill/nPerPage))
-  res.render('listall', { title: "Party", items: await partyPage(pageNumber, nPerPage), count: Math.ceil(countTill/nPerPage) })
+  res.render('listall', { title: "Party", items: await partyPage(pageNumber, nPerPage), count: Math.ceil(countTill / nPerPage) })
 });
 
 /**   C R E A T E    P A R T Y   T A B  */
@@ -66,7 +66,7 @@ router.get('/deletetab', async (req, res) => {
 
 
 /**  NEW CREAT POST PARTY insert*/
-router.post('/createParty',async (req, res) => {
+router.post('/createParty', async (req, res) => {
   console.log("req.body : ", req.body)
   const party = new Party();
 
@@ -77,8 +77,10 @@ router.post('/createParty',async (req, res) => {
 
   party.save().then(async (doc) => {
     console.log('doc  : ', doc)
-    // res.status(200);
-    //res.send("Added New Data")
+    // return res.status(200).json({
+    //   success : true,
+    //   message : "Saved Sucessfully",
+    // })
     res.render('index', { title: "Party", items: await getAllData() })
   }, (e) => {
     console.log("error occured")
@@ -187,7 +189,7 @@ router.get('/x', async (req, res) => {
   var partyDetails = Party.find({})
   //console.log(Party.find({name: "Romesh"}))
   //console.log(partyDetails)
-  res.render('x', {title: 'XXX', items : partyDetails})
+  res.render('x', { title: 'XXX', items: partyDetails })
 });
 
 router.post('/x', (req, res) => {
@@ -209,5 +211,28 @@ router.post('/x', (req, res) => {
     });
   })
 })
+
+/**  S E A R C H P A G E     */
+router.get('/searchpage', (req, res) => {
+  res.render('searchpage', { title: "Search Page " })
+});
+
+
+/**  S E A R C H P A G E    R E S U L T    */
+router.get('/searchpageRes', async (req, res) => {
+  const party = new Party();
+  console.log("req : ", req.query.name)
+  var searchQuery = { "name":  req.query.name};
+  await party.collection.find(searchQuery).toArray()
+    .then((result) => {
+      console.log(result)
+      if (result.length > 0) {
+        res.render('searchpageRes', {title : "Result", result:result})
+      } else {
+        res.send("ERROR")
+      }
+    })
+});
+
 
 module.exports = router;

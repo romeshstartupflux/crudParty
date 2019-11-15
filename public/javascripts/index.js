@@ -2,30 +2,6 @@ listAll(1);
 party();
 //angularFunction();
 
-// $(document).ready(function(){
-//   $("#create-party-form").on('submit', function(event){
-//     event.preventDefault();
-//     $.ajax({
-//       url: "creatparty",
-//       method: "POST",
-//       data: $(this).serialize(),
-//       dataType: "json",
-//       beforeSend: function(){
-//         $('#createparty').attr('disabled', 'disabled');
-//       },
-//       success: function(data){
-//         $('#createparty').atttr('disabled', false);
-//         if(data.name){
-//           var html = '<tr>';
-//           html += '<td>'+data.name+'</td>';
-//           html += '<td>'+data.party+'</td></tr>';
-//           $('#listall-table').append(html);
-//           $('#create-party-form')[0].reset();
-//         }
-//       }
-//     })
-//   });
-// });
 
 /**   C R E A T E   P A R T Y    T A B    */
 function party(){
@@ -80,24 +56,24 @@ function deletetab(){
 }
 
 // /**           C R E A T E          */
-function createParty() {  
-  var xhttp = new XMLHttpRequest();
-  xhttp.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
-      document.getElementById("demo").innerHTML = "Success";
-    }
-  };
+// function createParty() {  
+//   var xhttp = new XMLHttpRequest();
+//   xhttp.onreadystatechange = function() {
+//     if (this.readyState == 4 && this.status == 200) {
+//       document.getElementById("demo").innerHTML = "Success";
+//     }
+//   };
   
-  var formData = {
-    name : document.getElementById('name'),
-    party : document.getElementById('party')
-  };
-  console.log(formData.name.value)
-  xhttp.open("POST", "createParty", true);
-  xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-  xhttp.send("name="+ formData.name.value +"&party="+formData.party.value);
-  // listAll();
-}
+//   var formData = {
+//     name : document.getElementById('name'),
+//     party : document.getElementById('party')
+//   };
+//   console.log(formData.name.value)
+//   xhttp.open("POST", "createParty", true);
+//   xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+//   xhttp.send("name="+ formData.name.value +"&party="+formData.party.value);
+//   // listAll();
+// }
 
 /**     S E A R C H         */
 function showParty(str) {
